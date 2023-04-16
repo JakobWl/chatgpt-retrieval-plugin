@@ -51,6 +51,7 @@ async def upsert_file(
     file: UploadFile = File(...),
     metadata: Optional[str] = Form(None),
 ):
+    print(metadata + "Its not working")
     try:
         metadata_obj = (
             DocumentMetadata.parse_raw(metadata)
