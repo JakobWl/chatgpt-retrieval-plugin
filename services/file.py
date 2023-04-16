@@ -51,7 +51,7 @@ def extract_text_from_file(file: BufferedReader, mimetype: str) -> str:
         extracted_text = " ".join([page.extract_text() for page in reader.pages])
     elif mimetype == "text/plain" or mimetype == "text/markdown":
         # Read text from plain text file
-        extracted_text = file.read().decode("utf-8")
+        extracted_text = file.read().decode("utf-8", errors="replace")
     elif (
         mimetype
         == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -61,7 +61,7 @@ def extract_text_from_file(file: BufferedReader, mimetype: str) -> str:
     elif mimetype == "text/csv":
         # Extract text from csv using csv module
         extracted_text = ""
-        decoded_buffer = (line.decode("utf-8") for line in file)
+        decoded_buffer = (line.decode("utf-8", errors="replace") for line in file)
         reader = csv.reader(decoded_buffer)
         for row in reader:
             extracted_text += " ".join(row) + "\n"
