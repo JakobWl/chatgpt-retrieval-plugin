@@ -60,6 +60,8 @@ async def upsert_file(
     except:
         metadata_obj = DocumentMetadata(source=Source.file)
 
+    print(metadata_obj)
+
     document = await get_document_from_file(file, metadata_obj)
 
     try:
