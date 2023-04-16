@@ -7,6 +7,7 @@ from PyPDF2 import PdfReader
 import docx2txt
 import csv
 import pptx
+import magic
 
 from models.models import Document, DocumentMetadata
 
@@ -27,6 +28,9 @@ def extract_text_from_filepath(filepath: str, mimetype: Optional[str] = None) ->
     if mimetype is None:
         # Get the mimetype of the file based on its extension
         mimetype, _ = mimetypes.guess_type(filepath)
+        if mimetype is None:
+            # Use python-magic to get the mimetype of the file
+            mimetype = magic.from_file(filepath, mime=True)
 
     if not mimetype:
         if filepath.endswith(".md"):
